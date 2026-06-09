@@ -1,11 +1,11 @@
 <?php
 
 use Alura\Pdo\Domain\Model\Student;
+use Alura\Pdo\Infrastructure\Persistence\ConnectionCreator;
 
-    require_once 'vendor/autoload.php';
-    $databasePath = __DIR__ . DIRECTORY_SEPARATOR . 'bd.sqlite';
-    $dsn = 'sqlite:' . str_replace('\\', '/', $databasePath);
-    $pdo = new PDO($dsn);
+require_once 'vendor/autoload.php';
+
+$pdo = ConnectionCreator::createConnection();
     $query = 'SELECT * FROM STUDENTS';
     $statement = $pdo->query($query);
     $studentsData = $statement->fetchAll(PDO::FETCH_ASSOC);
