@@ -10,6 +10,6 @@ class ResponseJson {
     }
     public static function receive(): array {
         $input = file_get_contents('php://input');
-        return json_decode($input, true);
+        return json_decode($input, true, 512, JSON_THROW_ON_ERROR);
     }
 }
