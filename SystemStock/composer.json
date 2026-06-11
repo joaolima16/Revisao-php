@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "Estoque\\Pdo\\": "app/src/"
+            "SystemStock\\App\\": "app/"
         }
     },
     "require": {

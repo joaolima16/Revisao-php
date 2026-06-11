@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '../../../../vendor/autoload.php';
-
+namespace SystemStock\App\Domain\Model;
 class Stock {
     private ?int $id;
     private int $quantity;

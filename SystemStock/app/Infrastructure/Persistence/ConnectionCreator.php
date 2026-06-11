@@ -1,6 +1,6 @@
 <?php
 
-namespace Estoque\Pdo\Domain\Infrastructure\Persistence;
+namespace SystemStock\App\Infrastructure\Persistence;
 
 use PDO;
 
@@ -15,7 +15,7 @@ class ConnectionCreator
         $password = '';
         $charset = 'utf8mb4';
         $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$charset";
-        echo("Conectando ao banco de dados...");
+        // echo("Conectando ao banco de dados...");
         return new PDO($dsn, $username, $password);
     }
 }
