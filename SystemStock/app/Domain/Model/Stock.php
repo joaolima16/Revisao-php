@@ -10,7 +10,12 @@ class Stock {
         $this->quantity = $quantity;
         $this->product = $product;
     }
-
+    public function id(int $id): void {
+        if ($this->id !== null) {
+            throw new \LogicException('O estoque já possui um ID.');
+        }
+        $this->id = $id;
+    }
     public function getId() {
         return $this->id;
     }
@@ -19,5 +24,12 @@ class Stock {
     }
     public function getProduct() {
         return $this->product;
+    }
+    public function toArray(): array {
+        return [
+            'id' => $this->id,
+            'quantity' => $this->quantity,
+            'product' => $this->product->toArray(),
+        ];
     }
 }

@@ -13,9 +13,9 @@ class PdoStockRepository implements StockRepository{
         }
 
         public function save(Stock $stock): ?Stock {
-            if(stock->getId() === null){
+            if($stock->getId() === null){
                 $stmt = $this->connection->prepare(
-                    "INSERT INTO stocks (quantity, id_product)
+                    "INSERT INTO stock (quantity, id_product)
                      VALUES (:quantity, :id_product)"
                 );
                 $stmt->execute([
@@ -23,10 +23,10 @@ class PdoStockRepository implements StockRepository{
                     ':id_product' => $stock->getProduct()->getId()
                 ]);
                 $stockId = (int)$this->connection->lastInsertId();
-                $stock->setId($stockId);
+                $stock->id($stockId);
             } else {
                 $stmt = $this->connection->prepare(
-                    "UPDATE stocks
+                    "UPDATE stock
                      SET quantity = :quantity, id_product = :id_product
                      WHERE id = :id"
                 );
@@ -36,13 +36,14 @@ class PdoStockRepository implements StockRepository{
                     ':id' => $stock->getId()
                 ]);
             }
+            return $stock;
         }
     
         public function findById(int $id): ? Stock
         {
             $stmt = $this->connection->prepare(
                 "SELECT s.id, s.quantity, p.id as id_product, p.name, p.unit_price, p.code_product
-                 FROM stocks s
+                 FROM stock s
                  JOIN products p ON s.id_product = p.id
                  WHERE s.id = :id"
             );
@@ -67,7 +68,7 @@ class PdoStockRepository implements StockRepository{
         {
             $stmt = $this->connection->query(
                 "SELECT s.id, s.quantity, p.id as id_product, p.name, p.unit_price, p.code_product
-                 FROM stocks s
+                 FROM stock s
                  JOIN products p ON s.id_product = p.id"
             );
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -88,7 +89,7 @@ class PdoStockRepository implements StockRepository{
         }
         public function delete(int $id): void
         {
-            $stmt = $this->connection->prepare("DELETE FROM stocks WHERE id = :id");
+            $stmt = $this->connection->prepare("DELETE FROM stock WHERE id = :id");
             $stmt->execute([':id' => $id]);
         }
 
