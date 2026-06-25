@@ -15,7 +15,6 @@ class ConnectionCreator
         $password = '';
         $charset = 'utf8mb4';
         $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$charset";
-        // echo("Conectando ao banco de dados...");
         return new PDO($dsn, $username, $password);
     }
 }
